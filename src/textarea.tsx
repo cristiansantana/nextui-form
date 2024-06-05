@@ -1,4 +1,5 @@
 import { Textarea as NextuiTextarea, TextAreaProps } from "@nextui-org/react";
+import useForm from "./context/useForm";
 import { color, radius, size, FieldBaseProps } from "./types";
 import FieldWrapper from "./fieldWrapper";
 import FieldHelp from "./fieldHelp";
@@ -25,6 +26,11 @@ interface TextareaProps extends FieldBaseProps {
 }
 
 const Textarea = (props: TextareaProps) => {
+
+    const form = useForm();
+
+    const isDisabled = props.isDisabled || form.isSubmitting;
+
     const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         if (props.onChange) {
@@ -54,7 +60,7 @@ const Textarea = (props: TextareaProps) => {
                 isReadOnly={props.readonly ? true : false}
                 placeholder={props.placeholder ? props.placeholder : ""}
                 autoComplete={props.autocomplete ? "on" : "off"}
-                isDisabled={props.isDisabled}
+                isDisabled={isDisabled}
                 startContent={props.startContent}
                 endContent={props.endContent}
                 classNames={{

@@ -1,4 +1,5 @@
 import { Input as InputField, InputProps as NextuiInputProps } from "@nextui-org/react";
+import useForm from "./context/useForm";
 import { color, radius, size, FieldBaseProps } from "./types";
 import FieldWrapper from "./fieldWrapper";
 import FieldHelp from "./fieldHelp";
@@ -24,6 +25,10 @@ interface InputProps extends FieldBaseProps {
 }
 
 const Input = (props: InputProps) => {
+
+    const form = useForm();
+
+    const isDisabled = props.isDisabled || form.isSubmitting;
 
     const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -54,7 +59,7 @@ const Input = (props: InputProps) => {
                 isReadOnly={props.readonly ? true : false}
                 placeholder={props.placeholder ? props.placeholder : ""}
                 autoComplete={props.autocomplete ? "on" : "off"}
-                isDisabled={props.isDisabled}
+                isDisabled={isDisabled}
                 startContent={props.startContent}
                 endContent={props.endContent}
                 classNames={{
