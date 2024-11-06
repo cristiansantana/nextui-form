@@ -35,6 +35,7 @@ const Button = (props: ButtonProps) => {
             onPress={props.onPress}
             radius={props.radius}
             variant={props.variant}
+            size={props.size}
         >
             {props.children}
         </NextuiButton>
