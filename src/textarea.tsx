@@ -29,6 +29,9 @@ const Textarea = (props: TextareaProps) => {
 
     const form = useForm();
 
+    const size = props.size || "md";
+    const radius = props.radius || "md";
+    const textSize = props.textSize || "md";
     const isDisabled = props.isDisabled || form.isSubmitting;
 
     const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,18 +41,27 @@ const Textarea = (props: TextareaProps) => {
         }
     };
 
+    const fixPositionClass = radius === "sm" ? "px-1" : (radius === "md" ? "px-2" : (radius === "lg" ? "px-3" : ""));
+
     return (
         <FieldWrapper className={props.className}>
-            <Label
-                for={props.id}
-                label={props.label ? props.label : ""}
-                hasError={props.error ? true : false}
-            />
-            {props.help && <FieldHelp>{props.help}</FieldHelp>}
+            <div className={fixPositionClass}>
+                <Label
+                    for={props.id}
+                    label={props.label ? props.label : ""}
+                    hasError={props.error ? true : false}
+                    textSize={textSize}
+                />
+                {props.help &&
+                    <FieldHelp textSize={textSize}>
+                        {props.help}
+                    </FieldHelp>
+                }
+            </div>
             <NextuiTextarea
                 id={props.id}
-                size={props.size}
-                radius={props.radius}
+                size={size}
+                radius={radius}
                 color={props.color}
                 maxLength={props.maxLength}
                 value={props.value}
@@ -67,7 +79,13 @@ const Textarea = (props: TextareaProps) => {
                     input: props.classNames?.input,
                 }}
             />
-            {props.error && <FieldError>{props.error}</FieldError>}
+            <div className={fixPositionClass}>
+                {props.error &&
+                    <FieldError textSize={textSize}>
+                        {props.error}
+                    </FieldError>
+                }
+            </div>
         </FieldWrapper>
     );
 };
