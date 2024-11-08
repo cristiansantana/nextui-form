@@ -7,7 +7,7 @@ export type color = "default" | "primary" | "secondary" | "success" | "warning" 
 export interface FieldBaseProps {
     id: string;
     size?: size;
-    textSize: size;
+    textSize?: size;
     isDisabled?: boolean;
     label?: string;
     className?: string;
